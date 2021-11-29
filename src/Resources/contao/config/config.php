@@ -13,8 +13,8 @@ $GLOBALS['TL_ESTATEMANAGER_ADDONS'][] = array('ContaoEstateManager\GoogleAutocom
 
 if(ContaoEstateManager\GoogleAutocomplete\AddonManager::valid()) {
     // Add real estate filter items
-    $GLOBALS['TL_RFI']['locationGoogle'] = 'ContaoEstateManager\GoogleAutocomplete\FilterLocationGoogle';
-    $GLOBALS['TL_RFI']['radiusGoogle']   = 'ContaoEstateManager\GoogleAutocomplete\FilterRadiusGoogle';
+    $GLOBALS['CEM_RFI']['locationGoogle'] = 'ContaoEstateManager\GoogleAutocomplete\FilterLocationGoogle';
+    $GLOBALS['CEM_RFI']['radiusGoogle']   = 'ContaoEstateManager\GoogleAutocomplete\FilterRadiusGoogle';
 
     // Hooks
     $GLOBALS['TL_HOOKS']['getTypeParameter'][]         = array('ContaoEstateManager\GoogleAutocomplete\Filter', 'setLocationParameter');
