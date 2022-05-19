@@ -11,16 +11,20 @@
 // ESTATEMANAGER
 $GLOBALS['TL_ESTATEMANAGER_ADDONS'][] = array('ContaoEstateManager\GoogleAutocomplete', 'AddonManager');
 
+use ContaoEstateManager\GoogleAutocomplete\Filter;
+use ContaoEstateManager\GoogleAutocomplete\FilterLocationGoogle;
+use ContaoEstateManager\GoogleAutocomplete\FilterRadiusGoogle;
+
 if(ContaoEstateManager\GoogleAutocomplete\AddonManager::valid()) {
     // Add real estate filter items
-    $GLOBALS['CEM_RFI']['locationGoogle'] = 'ContaoEstateManager\GoogleAutocomplete\FilterLocationGoogle';
-    $GLOBALS['CEM_RFI']['radiusGoogle']   = 'ContaoEstateManager\GoogleAutocomplete\FilterRadiusGoogle';
+    $GLOBALS['CEM_RFI']['locationGoogle'] = FilterLocationGoogle::class;
+    $GLOBALS['CEM_RFI']['radiusGoogle']   = FilterRadiusGoogle::class;
 
     // Hooks
-    $GLOBALS['TL_HOOKS']['getTypeParameter'][]         = array('ContaoEstateManager\GoogleAutocomplete\Filter', 'setLocationParameter');
-    $GLOBALS['TL_HOOKS']['getParameterByGroups'][]     = array('ContaoEstateManager\GoogleAutocomplete\Filter', 'setLocationParameter');
-    $GLOBALS['TL_HOOKS']['getParameterByTypes'][]      = array('ContaoEstateManager\GoogleAutocomplete\Filter', 'setLocationParameter');
-    $GLOBALS['TL_HOOKS']['getTypeParameterByGroups'][] = array('ContaoEstateManager\GoogleAutocomplete\Filter', 'setLocationParameter');
-    $GLOBALS['TL_HOOKS']['addRealEstateSorting'][]     = array('ContaoEstateManager\GoogleAutocomplete\Filter', 'addRealEstateSorting');
-    $GLOBALS['TL_HOOKS']['prepareFilterData'][]        = array('ContaoEstateManager\GoogleAutocomplete\Filter', 'resetLocationFilter');
+    $GLOBALS['CEM_HOOKS']['getTypeParameter'][]         = array(Filter::class, 'setLocationParameter');
+    $GLOBALS['CEM_HOOKS']['getParameterByGroups'][]     = array(Filter::class, 'setLocationParameter');
+    $GLOBALS['CEM_HOOKS']['getParameterByTypes'][]      = array(Filter::class, 'setLocationParameter');
+    $GLOBALS['CEM_HOOKS']['getTypeParameterByGroups'][] = array(Filter::class, 'setLocationParameter');
+    $GLOBALS['CEM_HOOKS']['addRealEstateSorting'][]     = array(Filter::class, 'addRealEstateSorting');
+    $GLOBALS['CEM_HOOKS']['prepareFilterData'][]        = array(Filter::class, 'resetLocationFilter');
 }
