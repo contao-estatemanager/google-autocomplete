@@ -33,8 +33,13 @@ class Filter extends Controller
      * @param $objModule
      * @param $context
      */
-    public function setLocationParameter(&$arrColumns, &$arrValues, &$arrOptions, $objModule): void
+    public function setLocationParameter(&$arrColumns, &$arrValues, &$arrOptions, $mode, $addFragments, $objModule, $context): void
     {
+        if (!$addFragments)
+        {
+            return;
+        }
+
         $t = $this->strTable;
 
         if ($_SESSION['FILTER_DATA']['radius-google'] && $_SESSION['FILTER_DATA']['latitude'] && $_SESSION['FILTER_DATA']['longitude'])
