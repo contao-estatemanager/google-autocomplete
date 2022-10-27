@@ -101,7 +101,7 @@ class Filter extends Controller
      * @param $arrLabels
      * @param $context
      */
-    public function resetLocationFilter($arrSubmitted, $arrLabels, $context): void 
+    public function resetLocationFilter($arrSubmitted, $arrLabels, $context): void
     {
         if ($_SESSION['FILTER_DATA']['location-google'] === '')
         {

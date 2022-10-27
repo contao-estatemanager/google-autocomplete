@@ -11,16 +11,21 @@
 // ESTATEMANAGER
 $GLOBALS['TL_ESTATEMANAGER_ADDONS'][] = array('ContaoEstateManager\GoogleAutocomplete', 'AddonManager');
 
-if(ContaoEstateManager\GoogleAutocomplete\AddonManager::valid()) {
+use ContaoEstateManager\GoogleAutocomplete\AddonManager;
+use ContaoEstateManager\GoogleAutocomplete\Filter;
+use ContaoEstateManager\GoogleAutocomplete\FilterLocationGoogle;
+use ContaoEstateManager\GoogleAutocomplete\FilterRadiusGoogle;
+
+if(AddonManager::valid()) {
     // Add real estate filter items
-    $GLOBALS['TL_RFI']['locationGoogle'] = 'ContaoEstateManager\GoogleAutocomplete\FilterLocationGoogle';
-    $GLOBALS['TL_RFI']['radiusGoogle']   = 'ContaoEstateManager\GoogleAutocomplete\FilterRadiusGoogle';
+    $GLOBALS['TL_RFI']['locationGoogle'] = FilterLocationGoogle::class;
+    $GLOBALS['TL_RFI']['radiusGoogle']   = FilterRadiusGoogle::class;
 
     // Hooks
-    $GLOBALS['TL_HOOKS']['getTypeParameter'][]         = array('ContaoEstateManager\GoogleAutocomplete\Filter', 'setLocationParameter');
-    $GLOBALS['TL_HOOKS']['getParameterByGroups'][]     = array('ContaoEstateManager\GoogleAutocomplete\Filter', 'setLocationParameter');
-    $GLOBALS['TL_HOOKS']['getParameterByTypes'][]      = array('ContaoEstateManager\GoogleAutocomplete\Filter', 'setLocationParameter');
-    $GLOBALS['TL_HOOKS']['getTypeParameterByGroups'][] = array('ContaoEstateManager\GoogleAutocomplete\Filter', 'setLocationParameter');
-    $GLOBALS['TL_HOOKS']['addRealEstateSorting'][]     = array('ContaoEstateManager\GoogleAutocomplete\Filter', 'addRealEstateSorting');
-    $GLOBALS['TL_HOOKS']['prepareFilterData'][]        = array('ContaoEstateManager\GoogleAutocomplete\Filter', 'resetLocationFilter');
+    $GLOBALS['TL_HOOKS']['getTypeParameter'][]         = array(Filter::class, 'setLocationParameter');
+    $GLOBALS['TL_HOOKS']['getParameterByGroups'][]     = array(Filter::class, 'setLocationParameter');
+    $GLOBALS['TL_HOOKS']['getParameterByTypes'][]      = array(Filter::class, 'setLocationParameter');
+    $GLOBALS['TL_HOOKS']['getTypeParameterByGroups'][] = array(Filter::class, 'setLocationParameter');
+    $GLOBALS['TL_HOOKS']['addRealEstateSorting'][]     = array(Filter::class, 'addRealEstateSorting');
+    $GLOBALS['TL_HOOKS']['prepareFilterData'][]        = array(Filter::class, 'resetLocationFilter');
 }
