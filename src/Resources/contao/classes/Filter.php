@@ -42,7 +42,11 @@ class Filter extends Controller
 
         $t = $this->strTable;
 
-        if ($_SESSION['FILTER_DATA']['radius-google'] && $_SESSION['FILTER_DATA']['latitude'] && $_SESSION['FILTER_DATA']['longitude'])
+        if (
+            ($_SESSION['FILTER_DATA']['radius-google'] ?? null) &&
+            ($_SESSION['FILTER_DATA']['latitude'] ?? null) &&
+            ($_SESSION['FILTER_DATA']['longitude'] ?? null)
+        )
         {
             $arrColumns[] = "(6371*acos(cos(radians(?))*cos(radians($t.breitengrad))*cos(radians($t.laengengrad)-radians(?))+sin(radians(?))*sin(radians($t.breitengrad)))) <= ?";
             $arrValues[] = $_SESSION['FILTER_DATA']['latitude'];
@@ -52,26 +56,26 @@ class Filter extends Controller
         }
         else
         {
-            if ($_SESSION['FILTER_DATA']['city'])
+            if ($_SESSION['FILTER_DATA']['city'] ?? null)
             {
                 $arrColumns[] = "$t.ort=?";
                 $arrValues[] = $_SESSION['FILTER_DATA']['city'];
             }
 
-            if ($_SESSION['FILTER_DATA']['postal'])
+            if ($_SESSION['FILTER_DATA']['postal'] ?? null)
             {
                 $arrColumns[] = "$t.plz=?";
                 $arrValues[] = $_SESSION['FILTER_DATA']['postal'];
             }
 
-            if ($_SESSION['FILTER_DATA']['district'])
+            if ($_SESSION['FILTER_DATA']['district'] ?? null)
             {
                 $arrColumns[] = "$t.regionalerZusatz=?";
                 $arrValues[] = $_SESSION['FILTER_DATA']['district'];
             }
         }
 
-        if ($objModule->type === 'realEstateResultList' && $objModule->googleFilterAddSorting && $_SESSION['SORTING'] === 'location')
+        if (isset($objModule) && $objModule->type === 'realEstateResultList' && $objModule->googleFilterAddSorting && ($_SESSION['SORTING'] ?? null) === 'location')
         {
             if ($objModule->googleFilterLat && $objModule->googleFilterLng)
             {

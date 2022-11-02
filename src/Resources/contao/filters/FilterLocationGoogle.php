@@ -100,13 +100,13 @@ class FilterLocationGoogle extends FilterWidget
      */
     public function parse($arrAttributes=null): string
     {
-        $this->value = $_SESSION['FILTER_DATA']['location-google'];
-        $this->valueCountry = $_SESSION['FILTER_DATA']['country-short'];
-        $this->valueCity = $_SESSION['FILTER_DATA']['city'];
-        $this->valuePostal = $_SESSION['FILTER_DATA']['postal'];
-        $this->valueDistrict = $_SESSION['FILTER_DATA']['district'];
-        $this->valueLatitude = $_SESSION['FILTER_DATA']['latitude'];
-        $this->valueLongitude = $_SESSION['FILTER_DATA']['longitude'];
+        $this->value = $_SESSION['FILTER_DATA']['location-google'] ?? null;
+        $this->valueCountry = $_SESSION['FILTER_DATA']['country-short'] ?? null;
+        $this->valueCity = $_SESSION['FILTER_DATA']['city'] ?? null;
+        $this->valuePostal = $_SESSION['FILTER_DATA']['postal'] ?? null;
+        $this->valueDistrict = $_SESSION['FILTER_DATA']['district'] ?? null;
+        $this->valueLatitude = $_SESSION['FILTER_DATA']['latitude'] ?? null;
+        $this->valueLongitude = $_SESSION['FILTER_DATA']['longitude'] ?? null;
 
         $types = $this->googleAutocompleteType === 'regions' ? '('.$this->googleAutocompleteType.')' : $this->googleAutocompleteType;
 
